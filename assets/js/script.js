@@ -16,6 +16,7 @@ async function getQuestions() {
         throw new Error(data.error);
     }
     console.log(data);
+    console.log(data.results[0]);
     console.log(data.results[0].question);
 }
 
@@ -31,6 +32,14 @@ function setup() {
     {
         document.getElementById("question").innerHTML = questionData[0].question;
         document.getElementById("questionNo").innerHTML = questionNo;
+        let options = [questionData[0].correct_answer, ...questionData[0].incorrect_answers];
+        console.log(options);
+        // shuffle the options using sort() method
+        // options.sort(() => Math.random() - 0.5);
+        // console.log(options);
+        for (let i=0; i<4; i++){
+            document.getElementById(`radio${i+1}Label`).innerHTML = options[i];
+        }
     } else {
         document.getElementById("questionNo").innerHTML = "Finished!";
         document.getElementById("question").innerHTML = `Your score is ${score}`;
@@ -41,9 +50,10 @@ function setup() {
 }
 
 function check() {
-    if(document.getElementById("text-field").value == questionData[0].correct_answer){
+    console.log()
+    if(document.getElementById(`radio1`).checked){
         console.log("correct");
         score++;
-        document.getElementById("text-field").value = "";
+        document.getElementById(`radio1`).checked = false;
     }
 }
