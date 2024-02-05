@@ -18,14 +18,22 @@
             <div class="box">
                 <h1 id="questionNo">Quiz</h1>
                 <p id="question">Question</p>
-                <input type="radio" name="answer" id="radio1" class="form-control">
-                <label for="radio1" id="radio1Label"></label>
-                <input type="radio" name="answer" id="radio2" class="form-control">
-                <label for="radio2" id="radio2Label"></label>
-                <input type="radio" name="answer" id="radio3" class="form-control">
-                <label for="radio3" id="radio3Label"></label>
-                <input type="radio" name="answer" id="radio4" class="form-control">
-                <label for="radio4" id="radio4Label"></label>
+                <div class="option">
+                    <input type="radio" name="answer" id="radio1" class="rbutton">
+                    <label for="radio1" id="radio1Label"></label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="answer" id="radio2" class="rbutton">  
+                    <label for="radio2" id="radio2Label"></label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="answer" id="radio3" class="rbutton">
+                    <label for="radio3" id="radio3Label"></label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="answer" id="radio4" class="rbutton">
+                    <label for="radio4" id="radio4Label"></label>
+                </div>
                 <input type="submit" value="Check" id="button" class="btn btn-primary btn-block" onclick="clickButton()">
             </div>
             <div id="feedbackBox">

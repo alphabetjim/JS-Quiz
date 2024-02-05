@@ -35,3 +35,8 @@ input {
     -webkit-box-shadow:
     /* -moz-box-shadow: */    
 }
+
+.rbutton {
+    margin-left: 0;
+    margin-right: 5px;
+}
