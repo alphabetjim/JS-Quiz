@@ -1,0 +1,27 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.quiz-div {
+    margin-top: 36vh;
+}
+
+input {
+    margin-top: 20px;
+
+}
+
+.box {
+    padding: 40px;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: -1px 8px 15px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow:
+    /* -moz-box-shadow: */
+    
+}
