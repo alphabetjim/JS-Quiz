@@ -15,15 +15,10 @@ async function getQuestions() {
         console.error('API error');
         throw new Error(data.error);
     }
-    console.log(data);
-    console.log(data.results[0].question);
 }
 
 function clickButton() {
     check();
-    questionData.shift();
-    questionNo++;
-    setup();
 }
 
 function setup() {
@@ -31,19 +26,59 @@ function setup() {
     {
         document.getElementById("question").innerHTML = questionData[0].question;
         document.getElementById("questionNo").innerHTML = questionNo;
+        let options = [questionData[0].correct_answer, ...questionData[0].incorrect_answers];
+        // shuffle the options using sort() method
+        options.sort(() => Math.random() - 0.5);
+        for (let i=0; i<4; i++){
+            document.getElementById(`radio${i+1}Label`).innerHTML = options[i];
+        }
     } else {
         document.getElementById("questionNo").innerHTML = "Finished!";
         document.getElementById("question").innerHTML = `Your score is ${score}`;
-        document.getElementById("text-field").remove();
         document.getElementById("button").remove();
+        for (let i=1; i<5; i++){
+            document.getElementById(`radio${i}`).remove();
+            document.getElementById(`radio${i}Label`).remove();
+        }
+        // let newBtnString = `<button class="btn btn-primary btn-block" onclick="${getQuestions()}">Restart</button>`;
+        // document.getElementsByClassName("box")[0].innerHTML += newBtnString;
     }
     
 }
 
 function check() {
-    if(document.getElementById("text-field").value == questionData[0].correct_answer){
-        console.log("correct");
-        score++;
-        document.getElementById("text-field").value = "";
+    let correctIndex = 0;
+    for(let i=1; i<5; i++){
+        document.getElementById(`radio${i}Label`).style.backgroundColor = 'red';
+        document.getElementById(`radio${i}Label`).style.borderColor = 'red';
+        if (document.getElementById(`radio${i}Label`).innerHTML == questionData[0].correct_answer){
+            correctIndex = i;
+            document.getElementById(`radio${i}Label`).style.backgroundColor = 'green';
+            document.getElementById(`radio${i}Label`).style.borderColor = 'green';
+        }
     }
+    if(document.getElementById(`radio${correctIndex}`).checked){
+        document.getElementById('feedback').innerHTML = "Correct!"
+        document.getElementById('feedback').style.color = 'green';
+        score++;
+    } else {
+        document.getElementById('feedback').innerHTML = "Incorrect"
+        document.getElementById('feedback').style.color = 'red';
+    }
+    document.getElementById('feedbackBox').style.display = 'block';
+    if (questionData.length==1){
+        document.getElementById("btnNxt").value = "Finish";
+    }
+}
+
+function nextQuestion() {
+    for(let i=1; i<5; i++){
+        document.getElementById(`radio${i}`).checked = false;
+        document.getElementById(`radio${i}Label`).style.backgroundColor = '';
+        document.getElementById(`radio${i}Label`).style.borderColor = '';
+        document.getElementById('feedbackBox').style.display = 'none';
+    }
+    questionData.shift();
+    questionNo++;
+    setup();
 }
