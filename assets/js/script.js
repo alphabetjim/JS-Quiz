@@ -19,9 +19,6 @@ async function getQuestions() {
 
 function clickButton() {
     check();
-    questionData.shift();
-    questionNo++;
-    setup();
 }
 
 function setup() {
@@ -43,6 +40,8 @@ function setup() {
             document.getElementById(`radio${i}`).remove();
             document.getElementById(`radio${i}Label`).remove();
         }
+        // let newBtnString = `<button class="btn btn-primary btn-block" onclick="${getQuestions()}">Restart</button>`;
+        // document.getElementsByClassName("box")[0].innerHTML += newBtnString;
     }
     
 }
@@ -50,15 +49,36 @@ function setup() {
 function check() {
     let correctIndex = 0;
     for(let i=1; i<5; i++){
+        document.getElementById(`radio${i}Label`).style.backgroundColor = 'red';
+        document.getElementById(`radio${i}Label`).style.borderColor = 'red';
         if (document.getElementById(`radio${i}Label`).innerHTML == questionData[0].correct_answer){
             correctIndex = i;
+            document.getElementById(`radio${i}Label`).style.backgroundColor = 'green';
+            document.getElementById(`radio${i}Label`).style.borderColor = 'green';
         }
     }
     if(document.getElementById(`radio${correctIndex}`).checked){
-        console.log("correct");
+        document.getElementById('feedback').innerHTML = "Correct!"
+        document.getElementById('feedback').style.color = 'green';
         score++;
+    } else {
+        document.getElementById('feedback').innerHTML = "Incorrect"
+        document.getElementById('feedback').style.color = 'red';
     }
+    document.getElementById('feedbackBox').style.display = 'block';
+    if (questionData.length==1){
+        document.getElementById("btnNxt").value = "Finish";
+    }
+}
+
+function nextQuestion() {
     for(let i=1; i<5; i++){
         document.getElementById(`radio${i}`).checked = false;
+        document.getElementById(`radio${i}Label`).style.backgroundColor = '';
+        document.getElementById(`radio${i}Label`).style.borderColor = '';
+        document.getElementById('feedbackBox').style.display = 'none';
     }
+    questionData.shift();
+    questionNo++;
+    setup();
 }
